@@ -31,7 +31,7 @@ class Reachability {
   Future<bool> _checkInternetConnection(String host) async {
     try {
       final response = await http.head(Uri.https(host)).timeout(
-            Duration(milliseconds: 2000),
+            Duration(milliseconds: 3000),
             onTimeout: () =>
                 throw TimeoutException('Can\'t connect in 10 seconds.'),
           );
