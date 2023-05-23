@@ -19,6 +19,8 @@ import 'package:wallet_connect_dart_v2/wc_utils/misc/events/events.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/misc/heartbeat/constants.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/relay/models.dart';
 
+import '../../utils/network_reachable.dart';
+
 class Subscriber with Events implements ISubscriber {
   @override
   final Map<String, SubscriberActive> subscriptions;
@@ -68,7 +70,7 @@ class Subscriber with Events implements ISubscriber {
     if (!_initialized) {
       logger.i('Initialized');
       /// 首次先不订阅，网络失败，会影响对象初始化
-      // await _restart();
+      await _restart();
       _registerEventListeners();
       _onEnable();
     }
@@ -370,8 +372,10 @@ class Subscriber with Events implements ISubscriber {
   }
 
   Future<void> _restart() async {
-    await _restore();
-    await _reset();
+    if(await Reachability().startPing()){
+      await _restore();
+      await _reset();
+    }
   }
 
   @override

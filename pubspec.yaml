@@ -21,6 +21,7 @@ dependencies:
   ed25519_edwards: ^0.3.1
   x25519: ^0.1.1
   pointycastle: ^3.6.2
+  http: ^0.13.5
   yx_tool: ^0.1.2
   platform_info: ^3.2.0
   web_browser_detect: ^2.0.3
