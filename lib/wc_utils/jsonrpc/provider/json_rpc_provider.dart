@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:wallet_connect_dart_v2/utils/network_reachable.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/provider/i_json_rpc_connection.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/provider/i_json_rpc_provider.dart';
 import 'package:wallet_connect_dart_v2/wc_utils/jsonrpc/models/models.dart';
@@ -100,17 +101,17 @@ class JsonRpcProvider with Events implements IJsonRpcProvider {
 
   @override
   Future<void> open({dynamic connection}) async {
-    connection ??= this.connection;
-    if (this.connection == connection && this.connection.connected) return;
-    if (this.connection.connected) close();
-    if (connection is String) {
-      await this.connection.open(url: connection);
-      connection = this.connection;
-    }
-    _connection = setConnection(connection);
-    await this.connection.open();
-    _registerEventListeners();
-    events.emit("connect");
+      connection ??= this.connection;
+      if (this.connection == connection && this.connection.connected) return;
+      if (this.connection.connected) close();
+      if (connection is String) {
+        await this.connection.open(url: connection);
+        connection = this.connection;
+      }
+      _connection = setConnection(connection);
+      await this.connection.open();
+      _registerEventListeners();
+      events.emit("connect");
   }
 
   @override

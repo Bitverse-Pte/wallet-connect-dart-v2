@@ -4,10 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 const _reachabilityHosts = [
-  'apple.com',
-  'amazon.com',
-  'huawei.com',
-];
+  'google.com'];
 
 
 
@@ -33,9 +30,13 @@ class Reachability {
 
   Future<bool> _checkInternetConnection(String host) async {
     try {
-      final response = await http.head(Uri.https(host));
+      final response = await http.head(Uri.https(host)).timeout(
+            Duration(milliseconds: 2000),
+            onTimeout: () =>
+                throw TimeoutException('Can\'t connect in 10 seconds.'),
+          );
       return response.statusCode == HttpStatus.ok;
-    } catch (_, __) {
+    } catch (e) {
       return false;
     }
   }
