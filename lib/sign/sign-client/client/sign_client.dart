@@ -102,6 +102,7 @@ class SignClient with Events implements ISignClient {
     return client;
   }
 
+
   IStore<String, PairingStruct> get pairing => core.pairing.pairings;
 
   // ---------- Engine ----------------------------------------------- //
@@ -242,6 +243,13 @@ class SignClient with Events implements ISignClient {
     }
   }
 
+  /// 重新初始化
+  Future<void> reInitializeNetwork() async{
+    logger.i('Initialized');
+    await core.relayer.init();
+    await core.heartbeat.init();
+    await core.pairing.init();
+  }
   // ---------- Private ----------------------------------------------- //
 
   Future<void> _initialize() async {
@@ -259,4 +267,8 @@ class SignClient with Events implements ISignClient {
       rethrow;
     }
   }
+
+
+
+
 }

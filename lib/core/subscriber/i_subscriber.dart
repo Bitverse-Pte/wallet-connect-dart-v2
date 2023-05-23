@@ -26,6 +26,9 @@ abstract class ISubscriber with IEvents {
 
   Future<void> init();
 
+  Future<void> restart()async {
+
+  }
   Future<String> subscribe(
     String topic, {
     RelayerSubscribeOptions? opts,

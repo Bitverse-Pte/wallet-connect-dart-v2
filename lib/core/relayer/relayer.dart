@@ -162,6 +162,7 @@ class Relayer with Events implements IRelayer {
           projectId: projectId,
           auth: auth,
         ),
+        events
       ),
     );
   }

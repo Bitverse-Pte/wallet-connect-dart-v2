@@ -67,7 +67,8 @@ class Subscriber with Events implements ISubscriber {
   Future<void> init() async {
     if (!_initialized) {
       logger.i('Initialized');
-      await _restart();
+      /// 首次先不订阅，网络失败，会影响对象初始化
+      // await _restart();
       _registerEventListeners();
       _onEnable();
     }
@@ -373,6 +374,11 @@ class Subscriber with Events implements ISubscriber {
     await _reset();
   }
 
+  @override
+  Future<void> restart() async {
+    await _restore();
+    await _reset();
+  }
   Future<void> _persist() async {
     await _setRelayerSubscriptions(values);
     events.emit(SubscriberEvents.sync);
@@ -470,4 +476,6 @@ class Subscriber with Events implements ISubscriber {
       throw WCException(error.message);
     }
   }
+
+
 }

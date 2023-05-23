@@ -19,10 +19,10 @@ class WsConnection with Events implements IJsonRpcConnection {
 
   String url;
 
-  WsConnection(this.url)
+  WsConnection(this.url,this.events)
       : assert(isWsUrl(url),
-            'Provided URL is not compatible with WebSocket connection: $url'),
-        events = EventEmitter();
+            'Provided URL is not compatible with WebSocket connection: $url');
+        // events = EventEmitter();
 
   @override
   bool get connected => socket != null;
@@ -87,7 +87,8 @@ class WsConnection with Events implements IJsonRpcConnection {
         _onPayload(event);
       },
       onError: (e) {
-        throw _emitError(e);
+         _emitError(e);
+         return;
       },
       onDone: () {
         _onClose();
