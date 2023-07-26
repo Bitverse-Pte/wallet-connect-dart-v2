@@ -1,6 +1,7 @@
 library wallet_connect_dart_v2;
 
 export 'package:wallet_connect_dart_v2/core/models/app_metadata.dart';
+export 'package:wallet_connect_dart_v2/core/models/redirect.dart';
 export 'package:wallet_connect_dart_v2/core/pairing/models.dart';
 export 'package:wallet_connect_dart_v2/sign/engine/models.dart';
 export 'package:wallet_connect_dart_v2/sign/sign-client/client/models.dart';
